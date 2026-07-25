@@ -8,13 +8,7 @@ original a **Astro + TypeScript + Tailwind CSS v4**.
 
 ## Capturas
 
-| Inicio | Características |
-| --- | --- |
-| ![Home](docs/screenshots/home.png) | ![Características](docs/screenshots/caracteristicas.png) |
-
-| Voluntarios | Documentación técnica |
-| --- | --- |
-| ![Voluntarios](docs/screenshots/voluntarios.png) | ![Documentación](docs/screenshots/documentacion.png) |
+![Home](docs/screenshots/home.png)
 
 ## Qué tiene
 

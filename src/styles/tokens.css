@@ -62,10 +62,14 @@
   }
 
   /* Overscroll/rubber-band bounce (two-finger trackpad past the top or
-     bottom edge) paints the <html> background, not <body>'s - without this
-     it shows the browser's default white instead of the page's own bg. */
+     bottom edge): matching <html>'s background to the page bg alone wasn't
+     enough to fully kill the flash of white in every browser (the bounce
+     region is sometimes painted by the browser/OS chrome, not page CSS) -
+     disabling the bounce outright is the only way to guarantee it never
+     shows at all, top or bottom. */
   html {
     background: var(--color-bg);
+    overscroll-behavior-y: none;
   }
 
   body {
