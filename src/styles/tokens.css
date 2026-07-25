@@ -61,6 +61,13 @@
     --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
   }
 
+  /* Overscroll/rubber-band bounce (two-finger trackpad past the top or
+     bottom edge) paints the <html> background, not <body>'s - without this
+     it shows the browser's default white instead of the page's own bg. */
+  html {
+    background: var(--color-bg);
+  }
+
   body {
     background: var(--color-bg);
     color: var(--color-text);
