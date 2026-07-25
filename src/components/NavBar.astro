@@ -1,0 +1,85 @@
+---
+export interface Props {
+  current: 'home' | 'caracteristicas' | 'voluntarios' | 'embajadores' | 'postularme' | 'contacto' | 'documentacion';
+}
+const { current } = Astro.props;
+
+const curFlag = (id: string) => (current === id ? 'page' : undefined);
+const sobreActive = current === 'caracteristicas' || current === 'voluntarios';
+
+const links = [
+  { id: 'embajadores', href: '/embajadores', label: 'Embajadores' },
+  { id: 'postularme', href: '/postularme', label: 'Postularme' },
+  { id: 'contacto', href: '/contacto', label: 'Contacto' },
+  { id: 'documentacion', href: '/documentacion', label: 'Documentación' },
+];
+---
+
+<header class="sticky top-0 z-50 bg-(--color-bg) border-b-2 border-(--color-divider)">
+  <div class="max-w-[1280px] mx-auto px-6 py-3.5 flex items-center gap-8">
+    <a href="/" class="flex items-center gap-2.5 no-underline text-(--color-text) mr-auto">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+        <rect x="11" y="0" width="4" height="4" fill="var(--color-accent)"></rect>
+        <rect x="19" y="3" width="4" height="4" fill="var(--color-text)"></rect>
+        <rect x="22" y="11" width="4" height="4" fill="var(--color-text)"></rect>
+        <rect x="19" y="19" width="4" height="4" fill="var(--color-text)"></rect>
+        <rect x="11" y="22" width="4" height="4" fill="var(--color-text)"></rect>
+        <rect x="3" y="19" width="4" height="4" fill="var(--color-text)"></rect>
+        <rect x="0" y="11" width="4" height="4" fill="var(--color-text)"></rect>
+        <rect x="3" y="3" width="4" height="4" fill="var(--color-text)"></rect>
+        <rect x="11" y="11" width="4" height="4" fill="var(--color-accent)"></rect>
+      </svg>
+      <span class="font-(family-name:--font-heading) font-extrabold text-xl tracking-[-0.02em]">ARGOS</span>
+    </a>
+
+    <nav class="hidden min-[920px]:flex items-center gap-7">
+      <a href="/" aria-current={curFlag('home')} class="nav-link text-sm no-underline text-(--color-text) hover:text-(--color-accent)">Inicio</a>
+      <div class="group relative">
+        <button type="button" aria-current={sobreActive ? 'page' : undefined} class="nav-link all-unset cursor-pointer text-(--color-text) text-sm font-(family-name:--font-body) flex items-center gap-1 hover:text-(--color-accent)">
+          Sobre argOS
+          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3 L5 7 L9 3" stroke="currentColor" stroke-width="1.4" fill="none"></path></svg>
+        </button>
+        <div class="absolute top-full left-0 pt-2.5 invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150">
+          <div class="bg-(--color-bg) rounded-(--radius-lg) shadow-(--shadow-md) min-w-[200px] flex flex-col overflow-hidden">
+            <a href="/caracteristicas" class="px-4 py-3 no-underline text-(--color-text) text-sm border-b border-(--color-divider) hover:text-(--color-accent) hover:bg-(--color-surface)">Características</a>
+            <a href="/voluntarios" class="px-4 py-3 no-underline text-(--color-text) text-sm hover:text-(--color-accent) hover:bg-(--color-surface)">Voluntarios</a>
+          </div>
+        </div>
+      </div>
+      {links.map((l) => (
+        <a href={l.href} aria-current={curFlag(l.id)} class="nav-link text-sm no-underline text-(--color-text) hover:text-(--color-accent)">{l.label}</a>
+      ))}
+    </nav>
+
+    <a href="/#beta" class="hidden min-[920px]:inline-flex btn btn-primary btn-pill">Descarga Beta V2</a>
+
+    <button type="button" id="mobile-toggle" class="min-[920px]:hidden bg-transparent border-0 cursor-pointer p-2" aria-label="Menú" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="var(--color-text)" stroke-width="2"></path></svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden min-[920px]:hidden border-t-2 border-(--color-divider) px-6 py-4 flex-col gap-0.5">
+    <a href="/" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Inicio</a>
+    <a href="/caracteristicas" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Características</a>
+    <a href="/voluntarios" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Voluntarios</a>
+    <a href="/embajadores" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Embajadores</a>
+    <a href="/postularme" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Postularme</a>
+    <a href="/contacto" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Contacto</a>
+    <a href="/documentacion" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold">Documentación</a>
+    <a href="/#beta" class="btn btn-primary btn-pill mt-3 justify-center">Descarga Beta V2</a>
+  </div>
+</header>
+
+<style>
+  .all-unset { all: unset; }
+</style>
+
+<script>
+  const toggle = document.getElementById('mobile-toggle');
+  const menu = document.getElementById('mobile-menu');
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('flex');
+    menu?.classList.toggle('hidden', !isOpen);
+    toggle.setAttribute('aria-expanded', String(!!isOpen));
+  });
+</script>

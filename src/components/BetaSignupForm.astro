@@ -1,0 +1,23 @@
+---
+import MathCaptcha from './MathCaptcha.astro';
+---
+<div class="bg-(--color-bg) text-(--color-text) p-6 rounded-(--radius-lg)">
+  <form action="/api/beta-signup" method="post" data-enhance data-loading-label="Enviando..." data-success-target="beta-success" class="flex flex-col gap-3">
+    <div class="field">
+      <label for="beta-email">Email</label>
+      <input class="input" type="email" name="email" id="beta-email" required placeholder="vos@dominio.com" />
+    </div>
+    <MathCaptcha />
+    <p data-form-error class="text-red-700 text-xs m-0" role="alert"></p>
+    <button type="submit" class="btn btn-primary">Sumarme a la lista</button>
+  </form>
+  <div id="beta-success" hidden>
+    <p class="font-(family-name:--font-heading) font-extrabold m-0 mb-1.5">¡Listo! Estás en la lista.</p>
+    <p class="text-sm opacity-75 m-0">Te avisamos por mail apenas esté disponible el link de descarga.</p>
+  </div>
+</div>
+
+<script>
+  import { enhanceAllForms } from '../scripts/enhance-form';
+  enhanceAllForms();
+</script>

@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import { features } from '../data/features';
+---
+
+<BaseLayout title="Características — argOS" current="caracteristicas">
+  <section class="relative overflow-hidden bg-(--color-accent)">
+    <div class="hero-grid"></div>
+    <div class="max-w-[1280px] mx-auto px-6 pt-18 pb-22 relative grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+      <div>
+        <h6 class="text-(--color-bg) opacity-85">Características</h6>
+        <h1 class="text-(--color-bg) text-[clamp(34px,4.6vw,52px)] m-0">Elevá al máximo tu flujo de trabajo</h1>
+      </div>
+      <ImagePlaceholder label="Captura del escritorio argOS" aspect="4/3" />
+    </div>
+  </section>
+
+  <section class="max-w-[1280px] mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {features.map((f) => (
+        <div class="card-hover elev-sm bg-(--color-surface) p-6.5 rounded-(--radius-lg)">
+          <span class="tag tag-outline mb-3">{f.tag}</span>
+          <h3 class="text-[17px] mt-2.5 mb-2">{f.title}</h3>
+          <p class="text-sm opacity-75 m-0">{f.copy}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-t-2 border-(--color-divider) bg-(--color-surface)">
+    <div class="max-w-[1280px] mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <div>
+        <h6 class="text-(--color-accent-700)">Enfoque</h6>
+        <h2 class="text-[30px] mb-4">Sistema pensado para la ciberinteligencia</h2>
+        <p class="opacity-80 text-[15px] max-w-[48ch] mb-3">argOS no es una distro genérica: fue diseñada desde cero para potenciar investigaciones OSINT, análisis de amenazas y operaciones de inteligencia digital.</p>
+        <p class="opacity-80 text-[15px] max-w-[48ch] m-0">Cada herramienta incluida responde a un propósito estratégico dentro del entorno de ciberseguridad, optimizando tiempos y facilitando la integración de datos críticos.</p>
+      </div>
+      <ImagePlaceholder label="Terminal argOS" />
+    </div>
+  </section>
+
+  <section class="max-w-[1280px] mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+    <ImagePlaceholder label="Uso en modo Live" class="lg:order-1" />
+    <div>
+      <h6 class="text-(--color-accent-700)">Privacidad</h6>
+      <h2 class="text-[30px] mb-4">Anonimato desde el arranque</h2>
+      <p class="opacity-80 text-[15px] max-w-[48ch] mb-5">argOS funciona en modo Live: opera sin instalación y sin dejar rastros en el equipo. Ideal para auditorías, pruebas o investigaciones donde la privacidad del entorno es clave.</p>
+      <div class="elev-sm bg-(--color-surface) rounded-(--radius-lg) overflow-hidden">
+        <div class="px-5 py-3.5 border-b border-(--color-divider) text-sm flex gap-2.5 items-center"><span class="text-(--color-accent)">✓</span> Simplicidad y experiencia intuitiva</div>
+        <div class="px-5 py-3.5 border-b border-(--color-divider) text-sm flex gap-2.5 items-center"><span class="text-(--color-accent)">✓</span> Ética y responsabilidad social</div>
+        <div class="px-5 py-3.5 text-sm flex gap-2.5 items-center"><span class="text-(--color-accent)">✓</span> Verificación continua de nuestras metodologías</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t-2 border-(--color-divider) bg-(--color-surface)">
+    <div class="max-w-[1280px] mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center">
+      <ImagePlaceholder label="Tarjeta argOS project" aspect="4/5" />
+      <div>
+        <h2 class="text-[30px] mb-5">Preparado para el conflicto digital</h2>
+        <div>
+          <div class="py-4 border-t border-(--color-divider) text-[15px] opacity-85">Reúne herramientas clave para análisis, respuesta y operaciones de ciberinteligencia.</div>
+          <div class="py-4 border-t border-(--color-divider) text-[15px] opacity-85">Cuando la información es poder y el tiempo una ventaja táctica, no apuntamos al usuario promedio sino al que necesita operar con precisión y contundencia.</div>
+          <div class="py-4 border-t border-b border-(--color-divider) text-[15px] opacity-85">Pensado para quienes necesitan actuar rápido, con precisión, y en escenarios donde no hay segundas oportunidades.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-(--color-accent) text-(--color-bg)">
+    <div class="max-w-[1280px] mx-auto px-6 py-18 flex justify-between items-center flex-wrap gap-6">
+      <h2 class="text-(--color-bg) text-[clamp(28px,3.6vw,42px)] m-0 max-w-[20ch]">Probá la beta look &amp; feel</h2>
+      <a href="/#beta" class="btn btn-pill bg-(--color-bg) text-(--color-accent-700) hover:bg-(--color-neutral-200)">Registro &amp; Download</a>
+    </div>
+  </section>
+</BaseLayout>

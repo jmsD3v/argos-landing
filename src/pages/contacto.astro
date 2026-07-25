@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MathCaptcha from '../components/MathCaptcha.astro';
+---
+
+<BaseLayout title="Contacto — argOS" current="contacto">
+  <section class="max-w-[720px] mx-auto px-6 pt-20 pb-24">
+    <h6 class="text-(--color-accent-700)">Escribinos</h6>
+    <h1 class="text-[clamp(28px,3.8vw,40px)] mb-8">Contactanos</h1>
+
+    <form action="/api/contacto" method="post" data-enhance data-loading-label="Enviando..." data-success-target="contacto-success" class="flex flex-col gap-4.5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4.5">
+        <div class="field"><label for="c-nombre">Nombre</label><input class="input" id="c-nombre" name="nombre" required /></div>
+        <div class="field"><label for="c-apellido">Apellido</label><input class="input" id="c-apellido" name="apellido" required /></div>
+      </div>
+      <div class="field"><label for="c-email">Email</label><input class="input" type="email" id="c-email" name="email" required /></div>
+      <div class="field"><label for="c-mensaje">Mensaje</label><textarea class="input min-h-[140px]" id="c-mensaje" name="mensaje" required></textarea></div>
+      <MathCaptcha />
+      <p data-form-error class="text-red-700 text-xs m-0" role="alert"></p>
+      <button type="submit" class="btn btn-primary max-w-[180px] rounded-full justify-center">Enviar</button>
+    </form>
+    <div id="contacto-success" hidden class="elev-sm bg-(--color-accent-100) p-8 rounded-(--radius-lg)">
+      <h3 class="mb-2 text-(--color-accent-800)">¡Mensaje enviado!</h3>
+      <p class="opacity-80 text-sm m-0">Gracias por escribirnos. Te respondemos a la brevedad.</p>
+    </div>
+  </section>
+
+  <script>
+    import { enhanceAllForms } from '../scripts/enhance-form';
+    enhanceAllForms();
+  </script>
+</BaseLayout>

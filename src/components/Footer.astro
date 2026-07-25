@@ -1,0 +1,52 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t-2 border-(--color-divider) bg-(--color-bg)">
+  <div class="max-w-[1280px] mx-auto px-6 pt-12 pb-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-8">
+    <div>
+      <div class="flex items-center gap-2.5 mb-3">
+        <svg width="24" height="24" viewBox="0 0 26 26" aria-hidden="true">
+          <rect x="11" y="0" width="4" height="4" fill="var(--color-accent)"></rect>
+          <rect x="19" y="3" width="4" height="4" fill="var(--color-text)"></rect>
+          <rect x="22" y="11" width="4" height="4" fill="var(--color-text)"></rect>
+          <rect x="19" y="19" width="4" height="4" fill="var(--color-text)"></rect>
+          <rect x="11" y="22" width="4" height="4" fill="var(--color-text)"></rect>
+          <rect x="3" y="19" width="4" height="4" fill="var(--color-text)"></rect>
+          <rect x="0" y="11" width="4" height="4" fill="var(--color-text)"></rect>
+          <rect x="3" y="3" width="4" height="4" fill="var(--color-text)"></rect>
+          <rect x="11" y="11" width="4" height="4" fill="var(--color-accent)"></rect>
+        </svg>
+        <span class="font-(family-name:--font-heading) font-extrabold text-[17px]">ARGOS</span>
+      </div>
+      <p class="text-[13px] max-w-[32ch] opacity-75 m-0">El primer sistema operativo de ciberinteligencia de Argentina para toda LATAM y el mundo.</p>
+    </div>
+    <div>
+      <h6 class="mb-3.5">Proyecto</h6>
+      <div class="flex flex-col gap-2.5">
+        <a href="/caracteristicas" class="text-[13px] text-(--color-text) no-underline hover:text-(--color-accent)">Características</a>
+        <a href="/documentacion" class="text-[13px] text-(--color-text) no-underline hover:text-(--color-accent)">Documentación</a>
+        <a href="/voluntarios" class="text-[13px] text-(--color-text) no-underline hover:text-(--color-accent)">Equipo</a>
+      </div>
+    </div>
+    <div>
+      <h6 class="mb-3.5">Comunidad</h6>
+      <div class="flex flex-col gap-2.5">
+        <a href="/embajadores" class="text-[13px] text-(--color-text) no-underline hover:text-(--color-accent)">Sé Embajador</a>
+        <a href="/postularme" class="text-[13px] text-(--color-text) no-underline hover:text-(--color-accent)">Postularme</a>
+        <a href="/contacto" class="text-[13px] text-(--color-text) no-underline hover:text-(--color-accent)">Contacto</a>
+      </div>
+    </div>
+    <div>
+      <h6 class="mb-3.5">Descargas</h6>
+      <div class="flex flex-col gap-2.5">
+        <a href="/#beta" class="text-[13px] text-(--color-text) no-underline hover:text-(--color-accent)">V2 Beta (.OVA)</a>
+        <a href="/documentacion" class="text-[13px] text-(--color-text) no-underline hover:text-(--color-accent)">Requisitos técnicos</a>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-[1280px] mx-auto px-6 pb-7 border-t border-(--color-divider) pt-5 flex justify-between flex-wrap gap-2">
+    <p class="text-xs opacity-60 m-0">&copy; {year} Proyecto argOS. Código abierto y colaborativo.</p>
+    <p class="text-xs opacity-60 m-0">Hecho en Argentina, para LATAM.</p>
+  </div>
+</footer>

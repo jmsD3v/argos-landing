@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { team, avatarPalette, openRoles } from '../data/team';
+---
+
+<BaseLayout title="Voluntarios y equipo — argOS" current="voluntarios">
+  <section class="max-w-[1280px] mx-auto px-6 pt-16 pb-10">
+    <h6 class="text-(--color-accent-700)">Comunidad</h6>
+    <h1 class="text-[clamp(30px,4vw,42px)] mb-3">Nuestro equipo de colaboradores</h1>
+    <p class="opacity-75 max-w-[64ch] m-0">Un grupo distribuido en toda Latinoamérica que sostiene argOS de forma voluntaria y ad honorem.</p>
+  </section>
+
+  <section class="max-w-[1280px] mx-auto px-6 pb-16">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
+      {team.map((m) => {
+        const p = avatarPalette[m.paletteIndex];
+        return (
+          <div>
+            <div
+              class="card-hover elev-sm w-full aspect-square mb-2.5 rounded-(--radius-lg) flex items-center justify-center"
+              style={{ background: p.bg, color: p.fg }}
+            >
+              <span class="font-(family-name:--font-heading) font-extrabold text-[26px] tracking-[-0.02em]">{m.initials}</span>
+            </div>
+            <p class="font-(family-name:--font-heading) font-extrabold text-[13px] m-0">{m.name}</p>
+            <p class="text-[11px] text-(--color-accent-700) mt-0.5 mb-0">{m.role}</p>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="border-t-2 border-(--color-divider) bg-(--color-surface)">
+    <div class="max-w-[1280px] mx-auto px-6 py-16">
+      <p class="font-(family-name:--font-heading) font-extrabold text-xs tracking-[0.08em] uppercase text-(--color-accent-700) mb-2">Sé parte del proyecto y marca la diferencia</p>
+      <h2 class="text-[clamp(26px,3.4vw,36px)] mb-8">¡Únete a nuestro equipo de voluntarios!</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        {openRoles.map((r) => (
+          <div class="elev-sm bg-(--color-surface) p-7 rounded-(--radius-lg) flex flex-col gap-2.5">
+            <div>
+              <h3 class="text-[18px] mb-1">{r.title}</h3>
+              <span class="tag tag-accent">Full Remote</span>
+            </div>
+            <p class="text-sm opacity-80 m-0">{r.copy}</p>
+            <a href="/postularme" class="btn btn-primary btn-pill self-start mt-1">Postularme</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

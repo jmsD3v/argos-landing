@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { tools } from '../data/tools';
+
+const OVA_HASH = '9BD13A0DD8021DED1E1335FFD8532AF41033';
+// Set PUBLIC_OVA_DOWNLOAD_URL once the real download backend is connected -
+// until then the button renders in a clearly-labeled "pending" state instead
+// of linking anywhere.
+const downloadUrl = import.meta.env.PUBLIC_OVA_DOWNLOAD_URL as string | undefined;
+
+const specRows: [string, string][] = [
+  ['Versión', '1.0 Beta'],
+  ['Formato', 'OVA (Open Virtual Appliance)'],
+  ['Fecha de compilación', '9 de julio de 2025'],
+  ['Distribución base', 'Debian 12 (Bookworm)'],
+  ['Entorno de escritorio', 'XFCE'],
+  ['Núcleo', 'Linux 6.1.0-x86_64'],
+  ['Nombre del sistema', 'argOS'],
+  ['Hash MD5 (.ova)', OVA_HASH],
+];
+---
+
+<BaseLayout title="Documentación técnica — argOS" current="documentacion">
+  <section class="max-w-[1100px] mx-auto px-6 pt-16 pb-2">
+    <h6 class="text-(--color-accent-700)">Documentación técnica</h6>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h1 class="text-[clamp(28px,3.6vw,38px)] mb-2">argOS 1.0 Beta (.OVA)</h1>
+        <p class="opacity-70 text-sm m-0">Especificaciones de la imagen, requisitos de hardware y herramientas incluidas.</p>
+      </div>
+      {downloadUrl ? (
+        <a href={downloadUrl} class="btn btn-primary btn-pill whitespace-nowrap">Descargar imagen (.OVA)</a>
+      ) : (
+        <button
+          type="button"
+          data-pending-download
+          class="btn btn-secondary btn-pill whitespace-nowrap"
+          title="Pendiente: conectar con el backend real de descargas"
+        >
+          Descargar imagen (.OVA)
+        </button>
+      )}
+    </div>
+    <p data-pending-note hidden class="text-xs text-(--color-accent-700) mt-2 mb-0">
+      Todavía no está conectado el backend real de descargas — configurá <code class="font-mono">PUBLIC_OVA_DOWNLOAD_URL</code> cuando esté disponible.
+    </p>
+  </section>
+
+  <section class="max-w-[1100px] mx-auto px-6 py-8">
+    <table class="table">
+      <tbody>
+        {specRows.map(([label, value], i) => (
+          <tr>
+            <td class="opacity-60 w-1/3">{label}</td>
+            {i === specRows.length - 1 ? (
+              <td class="font-mono text-xs">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span>{value}</span>
+                  <button type="button" data-copy-hash={value} class="btn btn-ghost !text-xs !p-1">Copiar</button>
+                </div>
+              </td>
+            ) : (
+              <td>{value}</td>
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="text-xs opacity-60 mt-2 mb-0">Una vez descargada la imagen, verificá que su hash MD5 coincida con el de esta tabla antes de usarla.</p>
+  </section>
+
+  <section class="max-w-[1100px] mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <div class="elev-sm bg-(--color-surface) p-7 rounded-(--radius-lg)">
+      <h3 class="text-[17px] mb-3.5">Contenido de la imagen</h3>
+      <ul class="m-0 pl-4.5 text-sm opacity-80 flex flex-col gap-1.5">
+        <li>Sistema base Debian 12 actualizado</li>
+        <li>Escritorio XFCE customizado para ciberinteligencia</li>
+        <li>Paquete de herramientas para CIBERINTELIGENCIA y OSINT</li>
+        <li>Herramientas visuales y ejecutables en formato amigable</li>
+        <li>Acceso rápido y menú personalizados</li>
+        <li>Usuario preconfigurado (password: root)</li>
+        <li>Acceso root habilitado (password: root)</li>
+        <li>Servicios innecesarios desactivados para mayor seguridad</li>
+        <li>Manual de uso básico en el Escritorio</li>
+      </ul>
+    </div>
+    <div class="elev-sm bg-(--color-surface) p-7 rounded-(--radius-lg)">
+      <h3 class="text-[17px] mb-3.5">Requisitos técnicos mínimos</h3>
+      <p class="text-xs uppercase tracking-wide text-(--color-accent-700) mb-2">Hardware (para ejecución en VirtualBox)</p>
+      <ul class="m-0 mb-4 pl-4.5 text-sm opacity-80 flex flex-col gap-1.5">
+        <li>CPU: 2 núcleos físicos (x86_64, Intel VT-x o AMD-V activado)</li>
+        <li>RAM: 2 GB mínimo, 4 GB recomendado</li>
+        <li>Almacenamiento: 40 GB disponibles (~4 GB comprimido, ~16 GB descomprimido)</li>
+        <li>Tarjeta gráfica: soporte básico de aceleración 2D</li>
+        <li>Resolución mínima: 1024×768</li>
+      </ul>
+      <p class="text-xs uppercase tracking-wide text-(--color-accent-700) mb-2">Software</p>
+      <ul class="m-0 pl-4.5 text-sm opacity-80 flex flex-col gap-1.5">
+        <li>VirtualBox 6.1+</li>
+        <li>Guest Additions recomendadas para mejor rendimiento</li>
+        <li>SO host compatible: Linux, Windows, macOS</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="max-w-[1100px] mx-auto px-6 py-2 pb-6">
+    <div class="elev-sm bg-(--color-surface) p-6 rounded-(--radius-lg)">
+      <h3 class="text-base mb-2.5">Configuración de red</h3>
+      <ul class="m-0 pl-4.5 text-sm opacity-80 flex flex-col gap-1.5">
+        <li>Modo NAT por defecto</li>
+        <li>Se recomienda usar adaptador puente para escaneos o interacción con redes reales</li>
+        <li>Herramientas activas que requieren conexión: Maltego CE, Spiderfoot, etc.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="max-w-[1100px] mx-auto px-6 py-6 pb-20">
+    <h2 class="text-2xl mb-6">Herramientas incluidas</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      {tools.map((t) => (
+        <div class="elev-sm bg-(--color-surface) p-6.5 rounded-(--radius-lg)">
+          <span class="tag tag-outline mb-2.5">{t.name}</span>
+          <p class="text-sm opacity-80 mt-2 mb-0">{t.copy}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll<HTMLButtonElement>('[data-pending-download]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelector('[data-pending-note]')?.removeAttribute('hidden');
+      });
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('[data-copy-hash]').forEach((btn) => {
+      const idleLabel = btn.textContent ?? 'Copiar';
+      btn.addEventListener('click', async () => {
+        const hash = btn.dataset.copyHash ?? '';
+        try {
+          await navigator.clipboard.writeText(hash);
+          btn.textContent = '¡Copiado!';
+        } catch {
+          btn.textContent = 'No se pudo copiar';
+        }
+        setTimeout(() => {
+          btn.textContent = idleLabel;
+        }, 1500);
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,60 @@
+---
+---
+<div class="bg-[#151414] rounded-(--radius-lg) shadow-(--shadow-lg) font-mono overflow-hidden">
+  <div class="bg-[#232120] px-3.5 py-2 flex items-center gap-2 border-b border-black">
+    <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] inline-block"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f] inline-block"></span>
+    <span class="text-[#ccc] text-xs ml-2">Terminal Salomon — argOS Ciberinteligencia</span>
+  </div>
+  <div id="terminal-body" class="p-5 min-h-[220px] text-[#7dffb0] text-sm leading-[1.7]">
+    <p class="m-0 mb-3 text-[#ff8a5c]">« La sabiduría se invoca, y también se ejecuta »</p>
+    <div id="terminal-past"></div>
+    <p class="m-0"><span class="text-[#5cc8ff]">root@argOS</span>:~# <span id="terminal-typed"></span><span class="argos-cursor">▌</span></p>
+  </div>
+</div>
+
+<script>
+  const COMMANDS = [
+    'dataing --cuil 20-30xxxxxx-1',
+    'imargos --geolocate evidencia.jpg',
+    'shodargos --query "port:22 country:AR"',
+    'wallargos --track 0x9f2...4b1',
+  ];
+
+  const pastEl = document.getElementById('terminal-past');
+  const typedEl = document.getElementById('terminal-typed');
+  if (pastEl && typedEl) {
+    let cmdIndex = 0;
+    let charIndex = 0;
+    let pastLines: string[] = [];
+    let waiting = false;
+
+    const render = () => {
+      pastEl.innerHTML = pastLines
+        .map((line) => `<p class="m-0"><span class="text-[#5cc8ff]">root@argOS</span>:~# ${line}</p>`)
+        .join('');
+      typedEl.textContent = COMMANDS[cmdIndex % COMMANDS.length].slice(0, charIndex);
+    };
+
+    setInterval(() => {
+      if (waiting) return;
+      const cmd = COMMANDS[cmdIndex % COMMANDS.length];
+      if (charIndex < cmd.length) {
+        charIndex += 1;
+        render();
+      } else {
+        waiting = true;
+        setTimeout(() => {
+          waiting = false;
+          pastLines = [...pastLines, cmd].slice(-4);
+          charIndex = 0;
+          cmdIndex += 1;
+          render();
+        }, 900);
+      }
+    }, 45);
+
+    render();
+  }
+</script>

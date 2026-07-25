@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MathCaptcha from '../components/MathCaptcha.astro';
+---
+
+<BaseLayout title="Embajadores — argOS" current="embajadores">
+  <section class="max-w-[1000px] mx-auto px-6 pt-16 pb-6">
+    <h6 class="text-(--color-accent-700)">Comunidad regional</h6>
+    <h1 class="text-[clamp(28px,3.8vw,40px)] mb-5">Sé Embajador de argOS en tu país</h1>
+    <p class="opacity-80 text-[15px] mb-3.5">¿Te apasiona la ciberinteligencia, el OSINT y querés ser parte del crecimiento de una comunidad disruptiva en Latinoamérica?</p>
+    <p class="opacity-80 text-[15px] mb-3.5">Buscamos personas comprometidas que deseen representar a argOS en su país de origen, liderando equipos locales de voluntarios, difundiendo nuestra misión y colaborando en la recolección legal de fuentes públicas de información.</p>
+    <p class="opacity-80 text-[15px] mb-3.5">Como Embajador Regional serás el nexo entre tu país y el equipo central de argOS: acceso a material exclusivo, acompañamiento constante y la posibilidad de impactar en el desarrollo de herramientas OSINT específicas para tu región.</p>
+    <p class="opacity-80 text-[15px] m-0">Este rol es voluntario y ad honórem. Todas las actividades deben respetar estrictamente las leyes del país, previa firma de un acuerdo de confidencialidad y código ético.</p>
+  </section>
+
+  <section class="max-w-[1000px] mx-auto px-6 py-6 pb-20">
+    <form action="/api/embajadores" method="post" data-enhance data-loading-label="Enviando..." data-success-target="embajadores-success" class="flex flex-col gap-4.5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4.5">
+        <div class="field"><label for="e-nombre">Nombre</label><input class="input" id="e-nombre" name="nombre" required /></div>
+        <div class="field"><label for="e-apellido">Apellido</label><input class="input" id="e-apellido" name="apellido" required /></div>
+        <div class="field"><label for="e-pais">País</label><input class="input" id="e-pais" name="pais" required /></div>
+        <div class="field"><label for="e-ciudad">Ciudad</label><input class="input" id="e-ciudad" name="ciudad" /></div>
+        <div class="field"><label for="e-mail">Mail</label><input class="input" type="email" id="e-mail" name="mail" required /></div>
+        <div class="field"><label for="e-whatsapp">WhatsApp</label><input class="input" id="e-whatsapp" name="whatsapp" /></div>
+      </div>
+      <div class="field"><label for="e-linkedin">LinkedIn</label><input class="input" id="e-linkedin" name="linkedin" /></div>
+      <div class="field"><label for="e-experiencia">Tengo experiencia en</label><textarea class="input" id="e-experiencia" name="experiencia"></textarea></div>
+      <div class="field"><label for="e-razon">¿Cuál es la razón por la que quiero ser embajador de argOS en mi país?</label><textarea class="input" id="e-razon" name="razon"></textarea></div>
+      <MathCaptcha />
+      <p data-form-error class="text-red-700 text-xs m-0" role="alert"></p>
+      <button type="submit" class="btn btn-primary max-w-[260px] rounded-full justify-center">Enviar Postulación</button>
+    </form>
+    <div id="embajadores-success" hidden class="elev-sm bg-(--color-accent-100) p-8 rounded-(--radius-lg)">
+      <h3 class="mb-2 text-(--color-accent-800)">¡Postulación enviada!</h3>
+      <p class="opacity-80 text-sm m-0">Gracias por querer representar a argOS. Nos pondremos en contacto para coordinar una entrevista.</p>
+    </div>
+  </section>
+
+  <script>
+    import { enhanceAllForms } from '../scripts/enhance-form';
+    enhanceAllForms();
+  </script>
+</BaseLayout>

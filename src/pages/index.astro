@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalDemo from '../components/TerminalDemo.astro';
+import StatsCounter from '../components/StatsCounter.astro';
+import BetaSignupForm from '../components/BetaSignupForm.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import Icon from '../components/Icon.astro';
+import { principles } from '../data/principles';
+---
+
+<BaseLayout title="argOS — Sistema operativo de ciberinteligencia" current="home">
+  <section class="relative overflow-hidden bg-(--color-accent)">
+    <div class="hero-grid"></div>
+    <div class="max-w-[1280px] mx-auto px-6 pt-22 pb-24 relative grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-12 items-center">
+      <div>
+        <p class="font-(family-name:--font-heading) font-extrabold text-xs tracking-[0.1em] uppercase text-(--color-bg) opacity-85 mb-4">Próximo lanzamiento</p>
+        <h1 class="text-(--color-bg) text-[clamp(40px,5vw,64px)] leading-[1.05] mb-5">V2 Beta está llegando</h1>
+        <p class="text-(--color-bg) text-lg opacity-90 max-w-[44ch] mb-8 font-(family-name:--font-heading) font-semibold uppercase tracking-[0.01em]">Más fluida. Más estable. Más argOS que nunca.</p>
+        <div class="flex gap-3 flex-wrap">
+          <a href="#beta" class="btn btn-pill bg-(--color-bg) text-(--color-accent-700) hover:bg-(--color-neutral-200)">Descarga Beta V2 argOS</a>
+          <a href="/caracteristicas" class="btn btn-ghost btn-pill text-(--color-bg) border border-(--color-bg) hover:bg-white/15">Ver características</a>
+        </div>
+      </div>
+      <TerminalDemo />
+    </div>
+  </section>
+
+  <StatsCounter />
+
+  <section class="max-w-[1280px] mx-auto px-6 py-16">
+    <h2 class="text-[28px] mb-2">Nuestros principios</h2>
+    <p class="opacity-75 max-w-[60ch] mb-10">Los seis pilares que guían cada decisión de producto en argOS.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {principles.map((p) => (
+        <div class="card-hover elev-sm bg-(--color-surface) p-7 rounded-(--radius-lg)">
+          <div class="w-10 h-10 bg-(--color-accent) rounded-(--radius-md) flex items-center justify-center mb-4 text-(--color-bg)">
+            <Icon name={p.icon} />
+          </div>
+          <h3 class="text-[17px] mb-2">{p.title}</h3>
+          <p class="text-sm opacity-75 m-0">{p.copy}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-t-2 border-b-2 border-(--color-divider) bg-(--color-surface)">
+    <div class="max-w-[1280px] mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <div>
+        <h6 class="text-(--color-accent-700)">Enfoque</h6>
+        <h2 class="text-[30px] mb-4">Sistema pensado para la ciberinteligencia</h2>
+        <p class="opacity-80 text-[15px] max-w-[48ch] mb-3">argOS no es una distro genérica: fue diseñada desde cero para potenciar investigaciones OSINT, análisis de amenazas y operaciones de inteligencia digital.</p>
+        <p class="opacity-80 text-[15px] max-w-[48ch] m-0">Cada herramienta incluida responde a un propósito estratégico dentro del entorno de ciberseguridad, optimizando tiempos y facilitando la integración de datos críticos.</p>
+      </div>
+      <ImagePlaceholder label="Captura del escritorio argOS" />
+    </div>
+  </section>
+
+  <section class="max-w-[1280px] mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+    <ImagePlaceholder label="Modo Live sin instalación" class="lg:order-1" />
+    <div>
+      <h6 class="text-(--color-accent-700)">Privacidad</h6>
+      <h2 class="text-[30px] mb-4">Anonimato desde el arranque</h2>
+      <p class="opacity-80 text-[15px] max-w-[48ch] mb-5">argOS funciona en modo Live: opera sin instalación y sin dejar rastros en el equipo. Ideal para auditorías, pruebas o investigaciones donde la privacidad del entorno es clave.</p>
+      <div class="elev-sm bg-(--color-surface) rounded-(--radius-lg) overflow-hidden">
+        <div class="px-5 py-3.5 border-b border-(--color-divider) text-sm flex gap-2.5 items-center"><span class="text-(--color-accent)">✓</span> Simplicidad y experiencia intuitiva</div>
+        <div class="px-5 py-3.5 border-b border-(--color-divider) text-sm flex gap-2.5 items-center"><span class="text-(--color-accent)">✓</span> Ética y responsabilidad social</div>
+        <div class="px-5 py-3.5 text-sm flex gap-2.5 items-center"><span class="text-(--color-accent)">✓</span> Verificación continua de nuestras metodologías</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="beta" class="bg-(--color-accent) text-(--color-bg)">
+    <div class="max-w-[1280px] mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-start">
+      <div>
+        <h2 class="text-[clamp(30px,4vw,46px)] text-(--color-bg) mb-4">Probá la beta look &amp; feel</h2>
+        <p class="opacity-90 text-base max-w-[52ch] m-0">¿Estás listo para probar la versión beta estable? Registrate y quedá en lista de espera para recibir el link de descarga — experimentá el primer sistema operativo de ciberinteligencia de Argentina y para el mundo.</p>
+      </div>
+      <BetaSignupForm />
+    </div>
+  </section>
+</BaseLayout>
