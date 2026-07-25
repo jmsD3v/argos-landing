@@ -3,50 +3,53 @@ export interface TeamMember {
   role: string;
   initials: string;
   paletteIndex: number;
+  /** Filename in public/ - real headshot, uploaded 2026-07-25. Falls back to
+   * the gradient-initials tile (avatarClass) if a name is ever added here
+   * without a matching photo yet. */
+  photo?: string;
 }
 
-const RAW_TEAM: [string, string][] = [
-  ['Nahuel Marchettich', 'Dev & Tool Tester'],
-  ['David Rivas', 'WordPress Dev'],
-  ['Lucia Razongles', 'Tool Tester'],
-  ['Tomas Brusa', 'Tool Tester'],
-  ['Gustavo Coluccio', 'Dev & Tool Tester'],
-  ['Nadia Cuadra Aragón', 'Comunidades'],
-  ['Federico Capano', 'Tool Tester'],
-  ['Agustín Perez Pesce', 'Tool Tester'],
-  ['Lucia Fuhr', 'Comunidades'],
-  ['Nadia Gomez', 'Tool Tester'],
-  ['Facundo Benitez', 'Tool Tester'],
-  ['Gustavo Minchiotti', 'UX/UI & WordPress Dev'],
-  ["Ramiro Dell'Orto", 'Tool Tester'],
-  ['Laureano Rueda', 'Dev'],
-  ['Adrian Gervatovski', 'Tool Tester'],
-  ['Macarena Tallarico', 'Comunidades'],
-  ['Andres Isola', 'Tool Tester'],
-  ['Alejandro Tumilasci', 'Tool Tester'],
-  ['Juan Pablo Vargas', 'UX/UI'],
-  ['Ariel Anonis', 'Dev & Mobile Dev'],
-  ['Luis Garcia', 'Tool Tester'],
-  ['Guillermo Figueredo', 'Tool Tester'],
-  ['Juan Manuel Silva', 'Dev'],
+const RAW_TEAM: [string, string, string?][] = [
+  ['Nahuel Marchettich', 'Dev & Tool Tester', 'nm.webp'],
+  ['David Rivas', 'WordPress Dev', 'dr.webp'],
+  ['Lucia Razongles', 'Tool Tester', 'lr.webp'],
+  ['Tomas Brusa', 'Tool Tester', 'tb.webp'],
+  ['Gustavo Coluccio', 'Dev & Tool Tester', 'gc.webp'],
+  ['Nadia Cuadra Aragón', 'Comunidades', 'nca.webp'],
+  ['Federico Capano', 'Tool Tester', 'fc.webp'],
+  ['Agustín Perez Pesce', 'Tool Tester', 'app.webp'],
+  ['Lucia Fuhr', 'Comunidades', 'lf.webp'],
+  ['Nadia Gomez', 'Tool Tester', 'ng.webp'],
+  ['Facundo Benitez', 'Tool Tester', 'fb.webp'],
+  ['Gustavo Minchiotti', 'UX/UI & WordPress Dev', 'gm.webp'],
+  ["Ramiro Dell'Orto", 'Tool Tester', 'rdo.webp'],
+  ['Laureano Rueda', 'Dev', 'lru.webp'],
+  ['Adrian Gervatovski', 'Tool Tester', 'ag.webp'],
+  ['Macarena Tallarico', 'Comunidades', 'mt.webp'],
+  ['Andres Isola', 'Tool Tester', 'ai.webp'],
+  ['Alejandro Tumilasci', 'Tool Tester', 'at.webp'],
+  ['Juan Pablo Vargas', 'UX/UI', 'jpv.webp'],
+  ['Ariel Anonis', 'Dev & Mobile Dev', 'aa.webp'],
+  ['Luis Garcia', 'Tool Tester', 'lg.webp'],
+  ['Guillermo Figueredo', 'Tool Tester', 'gf.webp'],
+  ['Juan Manuel Silva', 'Dev', 'jms.webp'],
 ];
 
-export const team: TeamMember[] = RAW_TEAM.map(([name, role], i) => ({
+export const team: TeamMember[] = RAW_TEAM.map(([name, role, photo], i) => ({
   name,
   role,
+  photo,
   initials: name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase(),
   paletteIndex: i % 6,
 }));
 
-/** 6-color rotating gradient palette so no two adjacent avatar cards match. */
-export const avatarPalette = [
-  { bg: 'linear-gradient(135deg, var(--color-accent-300), var(--color-accent-600))', fg: 'var(--color-bg)' },
-  { bg: 'linear-gradient(135deg, var(--color-neutral-700), var(--color-neutral-900))', fg: 'var(--color-bg)' },
-  { bg: 'linear-gradient(135deg, var(--color-accent-100), var(--color-accent-400))', fg: 'var(--color-accent-900)' },
-  { bg: 'linear-gradient(135deg, var(--color-accent-600), var(--color-accent-900))', fg: 'var(--color-bg)' },
-  { bg: 'linear-gradient(135deg, var(--color-neutral-200), var(--color-neutral-400))', fg: 'var(--color-neutral-800)' },
-  { bg: 'linear-gradient(135deg, var(--color-accent-400), var(--color-accent-800))', fg: 'var(--color-bg)' },
-];
+/** 6-color rotating gradient palette so no two adjacent avatar cards match.
+ * Rendered via the `.avatar-0`..`.avatar-5` classes in tokens.css (a real CSS
+ * class rather than an inline `style` attribute, so it isn't affected by a
+ * `style-src` CSP that omits 'unsafe-inline'). */
+export function avatarClass(paletteIndex: number): string {
+  return `avatar-${paletteIndex}`;
+}
 
 export interface OpenRole {
   title: string;

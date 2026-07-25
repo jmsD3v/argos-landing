@@ -1,15 +1,23 @@
 ---
 export interface Props {
   label: string;
-  aspect?: string;
+  aspect?: '16/11' | '4/3' | '4/5';
   class?: string;
 }
 const { label, aspect = '16/11', class: className = '' } = Astro.props;
+
+// Tailwind's scanner needs the full class string to appear literally in
+// source (not built via template interpolation) to generate it - hence the
+// lookup table instead of `aspect-[${aspect}]`.
+const aspectClass: Record<NonNullable<Props['aspect']>, string> = {
+  '16/11': 'aspect-[16/11]',
+  '4/3': 'aspect-[4/3]',
+  '4/5': 'aspect-[4/5]',
+};
 ---
 
 <div
-  class:list={['flex items-center justify-center rounded-(--radius-lg) border-2 border-dashed border-(--color-divider) bg-(--color-surface) text-center px-6', className]}
-  style={{ aspectRatio: aspect }}
+  class:list={[aspectClass[aspect], 'flex items-center justify-center rounded-(--radius-lg) border-2 border-dashed border-(--color-divider) bg-(--color-surface) text-center px-6', className]}
 >
   <span class="text-sm opacity-60 max-w-[28ch]">{label}</span>
 </div>

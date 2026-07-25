@@ -6,6 +6,11 @@ const { current } = Astro.props;
 
 const curFlag = (id: string) => (current === id ? 'page' : undefined);
 const sobreActive = current === 'caracteristicas' || current === 'voluntarios';
+// Active-state color has to be picked per-element (not via a global
+// `[aria-current='page']` CSS rule) because these links also carry a plain
+// `text-(--color-bg)` utility class, and utilities always win over any
+// custom CSS layer in Tailwind v4 - see feedback-tailwind-v4-custom-css-needs-layers.
+const linkColor = (isActive: boolean) => (isActive ? 'text-(--color-text)' : 'text-(--color-bg)');
 
 const links = [
   { id: 'embajadores', href: '/embajadores', label: 'Embajadores' },
@@ -15,27 +20,16 @@ const links = [
 ];
 ---
 
-<header class="sticky top-0 z-50 bg-(--color-bg) border-b-2 border-(--color-divider)">
+<header class="sticky top-0 z-50 bg-(--color-accent)" transition:persist transition:name="site-navbar">
   <div class="max-w-[1280px] mx-auto px-6 py-3.5 flex items-center gap-8">
-    <a href="/" class="flex items-center gap-2.5 no-underline text-(--color-text) mr-auto">
-      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
-        <rect x="11" y="0" width="4" height="4" fill="var(--color-accent)"></rect>
-        <rect x="19" y="3" width="4" height="4" fill="var(--color-text)"></rect>
-        <rect x="22" y="11" width="4" height="4" fill="var(--color-text)"></rect>
-        <rect x="19" y="19" width="4" height="4" fill="var(--color-text)"></rect>
-        <rect x="11" y="22" width="4" height="4" fill="var(--color-text)"></rect>
-        <rect x="3" y="19" width="4" height="4" fill="var(--color-text)"></rect>
-        <rect x="0" y="11" width="4" height="4" fill="var(--color-text)"></rect>
-        <rect x="3" y="3" width="4" height="4" fill="var(--color-text)"></rect>
-        <rect x="11" y="11" width="4" height="4" fill="var(--color-accent)"></rect>
-      </svg>
-      <span class="font-(family-name:--font-heading) font-extrabold text-xl tracking-[-0.02em]">ARGOS</span>
+    <a href="/" class="flex items-center no-underline mr-auto">
+      <img src="/isologo5.webp" alt="argOS" width="322" height="81" class="h-7 w-auto" />
     </a>
 
     <nav class="hidden min-[920px]:flex items-center gap-7">
-      <a href="/" aria-current={curFlag('home')} class="nav-link text-sm no-underline text-(--color-text) hover:text-(--color-accent)">Inicio</a>
+      <a href="/" aria-current={curFlag('home')} class={`nav-link text-sm no-underline ${linkColor(current === 'home')} hover:text-(--color-text)`}>Inicio</a>
       <div class="group relative">
-        <button type="button" aria-current={sobreActive ? 'page' : undefined} class="nav-link all-unset cursor-pointer text-(--color-text) text-sm font-(family-name:--font-body) flex items-center gap-1 hover:text-(--color-accent)">
+        <button type="button" aria-current={sobreActive ? 'page' : undefined} class={`nav-link cursor-pointer bg-transparent border-0 p-0 m-0 ${linkColor(sobreActive)} text-sm font-(family-name:--font-body) flex items-center gap-1 hover:text-(--color-text)`}>
           Sobre argOS
           <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3 L5 7 L9 3" stroke="currentColor" stroke-width="1.4" fill="none"></path></svg>
         </button>
@@ -47,39 +41,42 @@ const links = [
         </div>
       </div>
       {links.map((l) => (
-        <a href={l.href} aria-current={curFlag(l.id)} class="nav-link text-sm no-underline text-(--color-text) hover:text-(--color-accent)">{l.label}</a>
+        <a href={l.href} aria-current={curFlag(l.id)} class={`nav-link text-sm no-underline ${linkColor(current === l.id)} hover:text-(--color-text)`}>{l.label}</a>
       ))}
     </nav>
 
-    <a href="/#beta" class="hidden min-[920px]:inline-flex btn btn-primary btn-pill">Descarga Beta V2</a>
+    <a href="/#beta" class="hidden min-[920px]:inline-flex btn btn-pill bg-(--color-bg) text-(--color-accent-700) hover:bg-(--color-neutral-200)">Descarga Beta V2</a>
 
     <button type="button" id="mobile-toggle" class="min-[920px]:hidden bg-transparent border-0 cursor-pointer p-2" aria-label="Menú" aria-expanded="false" aria-controls="mobile-menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="var(--color-text)" stroke-width="2"></path></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="var(--color-bg)" stroke-width="2"></path></svg>
     </button>
   </div>
 
-  <div id="mobile-menu" class="hidden min-[920px]:hidden border-t-2 border-(--color-divider) px-6 py-4 flex-col gap-0.5">
-    <a href="/" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Inicio</a>
-    <a href="/caracteristicas" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Características</a>
-    <a href="/voluntarios" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Voluntarios</a>
-    <a href="/embajadores" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Embajadores</a>
-    <a href="/postularme" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Postularme</a>
-    <a href="/contacto" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold border-b border-(--color-divider)">Contacto</a>
-    <a href="/documentacion" class="py-3 no-underline text-(--color-text) text-base font-(family-name:--font-heading) font-semibold">Documentación</a>
-    <a href="/#beta" class="btn btn-primary btn-pill mt-3 justify-center">Descarga Beta V2</a>
+  <div id="mobile-menu" class="hidden min-[920px]:hidden border-t-2 border-white/25 px-6 py-4 flex-col gap-0.5">
+    <a href="/" class="py-3 no-underline text-(--color-bg) text-base font-(family-name:--font-heading) font-semibold border-b border-white/20">Inicio</a>
+    <a href="/caracteristicas" class="py-3 no-underline text-(--color-bg) text-base font-(family-name:--font-heading) font-semibold border-b border-white/20">Características</a>
+    <a href="/voluntarios" class="py-3 no-underline text-(--color-bg) text-base font-(family-name:--font-heading) font-semibold border-b border-white/20">Voluntarios</a>
+    <a href="/embajadores" class="py-3 no-underline text-(--color-bg) text-base font-(family-name:--font-heading) font-semibold border-b border-white/20">Embajadores</a>
+    <a href="/postularme" class="py-3 no-underline text-(--color-bg) text-base font-(family-name:--font-heading) font-semibold border-b border-white/20">Postularme</a>
+    <a href="/contacto" class="py-3 no-underline text-(--color-bg) text-base font-(family-name:--font-heading) font-semibold border-b border-white/20">Contacto</a>
+    <a href="/documentacion" class="py-3 no-underline text-(--color-bg) text-base font-(family-name:--font-heading) font-semibold">Documentación</a>
+    <a href="/#beta" class="btn btn-pill bg-(--color-bg) text-(--color-accent-700) hover:bg-(--color-neutral-200) mt-3 justify-center">Descarga Beta V2</a>
   </div>
 </header>
 
-<style>
-  .all-unset { all: unset; }
-</style>
-
 <script>
-  const toggle = document.getElementById('mobile-toggle');
-  const menu = document.getElementById('mobile-menu');
-  toggle?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('flex');
-    menu?.classList.toggle('hidden', !isOpen);
-    toggle.setAttribute('aria-expanded', String(!!isOpen));
-  });
+  import { initMobileNavToggle } from '../scripts/nav-toggle';
+  import { initButtonPress } from '../scripts/animations';
+  import { initPageContent } from '../scripts/page-init';
+
+  // NavBar is `transition:persist`, so this script block only ever runs
+  // once for the whole session - safe place to register a listener that
+  // must not be re-registered on every soft navigation. `astro:page-load`
+  // fires after the initial load AND after every transition, so this one
+  // registration covers all per-page setup (terminal, stats, forms,
+  // captcha, reveal/hero animations - see page-init.ts) without ever
+  // duplicating listeners.
+  initMobileNavToggle();
+  initButtonPress();
+  document.addEventListener('astro:page-load', initPageContent);
 </script>

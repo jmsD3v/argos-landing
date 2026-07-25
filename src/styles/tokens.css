@@ -1,158 +1,202 @@
 /* argOS design tokens - ported from the modernization handoff (design-tokens.css).
    Source of truth for color/type/spacing/radius/shadow. Keep in sync with the
-   @theme block in global.css if a value here changes. The Archivo font import
-   lives in global.css (must be the file's first rule). */
+   @theme block in global.css if a value here changes. The Space Grotesk /
+   JetBrains Mono font import lives in global.css (must be the file's first rule).
 
-:root {
-  --color-bg: #f3f2f2;
-  --color-surface: #eae9e9;
-  --color-text: #201e1d;
-  --color-accent: #f2650f;
-  --color-divider: color-mix(in srgb, #201e1d 18%, transparent);
+   Everything below is wrapped in Tailwind v4's `base`/`components` layers
+   (declared by `@import "tailwindcss"` as `@layer theme, base, components,
+   utilities`). Per the CSS Cascade Layers spec, *unlayered* CSS always beats
+   *any* layered CSS regardless of source order or specificity - so without
+   this, a plain `.btn { background: transparent }` here silently wins over a
+   `bg-(--color-accent)` utility class every time, no matter which import
+   comes first. Wrapping these in the same layers Tailwind uses lets utility
+   classes override them as intended, with no `!important` needed. */
 
-  --color-neutral-100: #f8f4f4;
-  --color-neutral-200: #eae7e7;
-  --color-neutral-300: #d7d3d3;
-  --color-neutral-400: #bab6b6;
-  --color-neutral-500: #9b9797;
-  --color-neutral-600: #7d7979;
-  --color-neutral-700: #605d5d;
-  --color-neutral-800: #444141;
-  --color-neutral-900: #2d2b2b;
+@layer base {
+  :root {
+    --color-bg: #f3f2f2;
+    --color-surface: #eae9e9;
+    --color-text: #201e1d;
+    --color-accent: #f2650f;
+    --color-divider: color-mix(in srgb, #201e1d 18%, transparent);
 
-  --color-accent-100: #fff3e8;
-  --color-accent-200: #ffe0c2;
-  --color-accent-300: #ffc28a;
-  --color-accent-400: #ff9a4d;
-  --color-accent-500: #f2650f;
-  --color-accent-600: #d4550a;
-  --color-accent-700: #a84208;
-  --color-accent-800: #7a3007;
-  --color-accent-900: #4a1f08;
+    --color-neutral-100: #f8f4f4;
+    --color-neutral-200: #eae7e7;
+    --color-neutral-300: #d7d3d3;
+    --color-neutral-400: #bab6b6;
+    --color-neutral-500: #9b9797;
+    --color-neutral-600: #7d7979;
+    --color-neutral-700: #605d5d;
+    --color-neutral-800: #444141;
+    --color-neutral-900: #2d2b2b;
 
-  --font-heading: 'Archivo', system-ui, sans-serif;
-  --font-heading-weight: 800;
-  --font-body: 'Archivo', system-ui, sans-serif;
+    --color-accent-100: #fff3e8;
+    --color-accent-200: #ffe0c2;
+    --color-accent-300: #ffc28a;
+    --color-accent-400: #ff9a4d;
+    --color-accent-500: #f2650f;
+    --color-accent-600: #d4550a;
+    --color-accent-700: #a84208;
+    --color-accent-800: #7a3007;
+    --color-accent-900: #4a1f08;
 
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
+    --font-heading: 'Space Grotesk', system-ui, sans-serif;
+    --font-heading-weight: 700;
+    --font-body: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 22px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
 
-  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
-  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
-  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 22px;
+
+    --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+    --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+    --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+    line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
+  }
+  h1 { font-size: 42px; }
+  h2 { font-size: 32px; }
+  h3 { font-size: 25px; }
+  h4 { font-size: 20px; }
+  h5 { font-size: 16px; }
+  h6 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+  p { margin: 0 0 var(--space-3); }
+  a { color: var(--color-accent); text-underline-offset: 3px; }
+  img { display: block; max-width: 100%; }
+  .text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+  :focus { outline: none; }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  ::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+  /* No native up/down spinner on any number input anywhere in the project
+     (currently just the MathCaptcha answer field) - it's a plain answer box,
+     not a quantity stepper. */
+  input[type='number'] { appearance: textfield; -moz-appearance: textfield; }
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
-body {
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
-}
-h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+@layer components {
+  /* — buttons — */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    cursor: pointer; text-decoration: none;
+    font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+    font-size: 14px; line-height: 1.2; color: var(--color-text);
+    background: transparent; border: 1px solid transparent;
+    padding: var(--space-2) calc(var(--space-3) * 1.2);
+    border-radius: var(--radius-md);
+    transition: background 150ms ease;
+  }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-primary { background: var(--color-accent); color: var(--color-bg); }
+  .btn-primary:hover { background: var(--color-accent-600); }
+  .btn-primary:active { background: var(--color-accent-700); }
+  .btn-secondary { border-color: var(--color-divider); }
+  .btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+  .btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
+  .btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+  .btn-block { width: 100%; margin-top: var(--space-2); justify-content: center; }
+  .btn-pill { border-radius: 999px; padding: 12px 24px; }
 
-*, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
-  line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
-}
-h1 { font-size: 42px; }
-h2 { font-size: 32px; }
-h3 { font-size: 25px; }
-h4 { font-size: 20px; }
-h5 { font-size: 16px; }
-h6 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
-p { margin: 0 0 var(--space-3); }
-a { color: var(--color-accent); text-underline-offset: 3px; }
-img { display: block; max-width: 100%; }
-.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
-:focus { outline: none; }
-:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+  /* — forms — */
+  .field > label {
+    display: block; font-size: 12px; margin-bottom: 5px;
+    color: color-mix(in srgb, var(--color-text) 70%, transparent);
+  }
+  .input {
+    width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
+    font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
+    background: var(--color-surface);
+    border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+  }
+  .input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+  .input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+  textarea.input { min-height: 90px; resize: vertical; }
 
-/* — buttons — */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  cursor: pointer; text-decoration: none;
-  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
-  font-size: 14px; line-height: 1.2; color: var(--color-text);
-  background: transparent; border: 1px solid transparent;
-  padding: var(--space-2) calc(var(--space-3) * 1.2);
-  border-radius: var(--radius-md);
-  transition: background 150ms ease;
-}
-.btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.btn-primary { background: var(--color-accent); color: var(--color-bg); }
-.btn-primary:hover { background: var(--color-accent-600); }
-.btn-primary:active { background: var(--color-accent-700); }
-.btn-secondary { border-color: var(--color-divider); }
-.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
-.btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
-.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
-.btn-block { width: 100%; margin-top: var(--space-2); justify-content: center; }
-.btn-pill { border-radius: 999px; padding: 12px 24px; }
+  /* — cards — */
+  .card {
+    display: flex; flex-direction: column; gap: var(--space-2);
+    padding: var(--space-3); border-radius: var(--radius-md); background: var(--color-surface);
+  }
+  .elev-sm { box-shadow: var(--shadow-sm); }
+  .elev-md { box-shadow: var(--shadow-md); }
+  .elev-lg { box-shadow: var(--shadow-lg); }
+  .card-hover { transition: transform 150ms ease, box-shadow 150ms ease; }
+  .card-hover:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
 
-/* — forms — */
-.field > label {
-  display: block; font-size: 12px; margin-bottom: 5px;
-  color: color-mix(in srgb, var(--color-text) 70%, transparent);
-}
-.input {
-  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
-  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
-  background: var(--color-surface);
-  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
-}
-.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
-.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
-textarea.input { min-height: 90px; resize: vertical; }
+  /* — tags — */
+  .tag {
+    display: inline-flex; align-items: center; font-size: 11px;
+    letter-spacing: 0.02em; padding: 3px 10px;
+    border-radius: calc(var(--radius-md) * 0.75);
+  }
+  .tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
+  .tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
 
-/* — cards — */
-.card {
-  display: flex; flex-direction: column; gap: var(--space-2);
-  padding: var(--space-3); border-radius: var(--radius-md); background: var(--color-surface);
+  /* — nav underline / active state — */
+  /* Active-page color is picked per-element in NavBar.astro (see linkColor())
+     since a utility class on the same link would otherwise always win over
+     this rule; font-weight has no such competing utility, so it's fine here. */
+  .nav-link[aria-current='page'] { font-weight: 600; }
+
+  /* — hero grid pattern — */
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--color-bg) 14%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--color-bg) 14%, transparent) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* — table — */
+  .table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .table td {
+    padding: var(--space-2);
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  /* — team avatar gradients (Voluntarios) — real classes, not inline styles,
+     so they render under a strict style-src CSP with no 'unsafe-inline' — */
+  .avatar-0 { background: linear-gradient(135deg, var(--color-accent-300), var(--color-accent-600)); color: var(--color-bg); }
+  .avatar-1 { background: linear-gradient(135deg, var(--color-neutral-700), var(--color-neutral-900)); color: var(--color-bg); }
+  .avatar-2 { background: linear-gradient(135deg, var(--color-accent-100), var(--color-accent-400)); color: var(--color-accent-900); }
+  .avatar-3 { background: linear-gradient(135deg, var(--color-accent-600), var(--color-accent-900)); color: var(--color-bg); }
+  .avatar-4 { background: linear-gradient(135deg, var(--color-neutral-200), var(--color-neutral-400)); color: var(--color-neutral-800); }
+  .avatar-5 { background: linear-gradient(135deg, var(--color-accent-400), var(--color-accent-800)); color: var(--color-bg); }
+
+  /* — terminal cursor — */
+  @keyframes argos-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+  .argos-cursor { animation: argos-blink 1s step-end infinite; }
+
+  /* — page transition (src/lib/pageTransition.ts) — */
+  @keyframes argos-fade-out { to { opacity: 0; transform: translateY(-10px); } }
+  @keyframes argos-fade-in { from { opacity: 0; transform: translateY(14px); } }
+
+  /* — reveal-on-scroll / hero-entrance targets (src/scripts/animations.ts) —
+     anime.js sets the actual from/to values in JS so these elements only
+     ever start hidden when JS has run; this floor keeps first paint stable
+     (no flash of full-opacity content before the observer attaches). */
+  [data-reveal-item], [data-hero-item] { will-change: transform, opacity; }
 }
-.elev-sm { box-shadow: var(--shadow-sm); }
-.elev-md { box-shadow: var(--shadow-md); }
-.elev-lg { box-shadow: var(--shadow-lg); }
-.card-hover { transition: transform 150ms ease, box-shadow 150ms ease; }
-.card-hover:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-
-/* — tags — */
-.tag {
-  display: inline-flex; align-items: center; font-size: 11px;
-  letter-spacing: 0.02em; padding: 3px 10px;
-  border-radius: calc(var(--radius-md) * 0.75);
-}
-.tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
-.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
-
-/* — nav underline / active state — */
-.nav-link[aria-current='page'] { color: var(--color-accent); }
-
-/* — hero grid pattern — */
-.hero-grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--color-bg) 14%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-bg) 14%, transparent) 1px, transparent 1px);
-  background-size: 56px 56px;
-}
-
-/* — table — */
-.table { width: 100%; border-collapse: collapse; font-size: 14px; }
-.table td {
-  padding: var(--space-2);
-  border-bottom: 1px solid var(--color-divider);
-}
-
-/* — terminal cursor — */
-@keyframes argos-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
-.argos-cursor { animation: argos-blink 1s step-end infinite; }

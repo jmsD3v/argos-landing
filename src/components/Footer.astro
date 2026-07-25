@@ -2,22 +2,11 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t-2 border-(--color-divider) bg-(--color-bg)">
+<footer class="border-t-2 border-(--color-divider) bg-(--color-bg)" transition:persist transition:name="site-footer">
   <div class="max-w-[1280px] mx-auto px-6 pt-12 pb-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-8">
     <div>
-      <div class="flex items-center gap-2.5 mb-3">
-        <svg width="24" height="24" viewBox="0 0 26 26" aria-hidden="true">
-          <rect x="11" y="0" width="4" height="4" fill="var(--color-accent)"></rect>
-          <rect x="19" y="3" width="4" height="4" fill="var(--color-text)"></rect>
-          <rect x="22" y="11" width="4" height="4" fill="var(--color-text)"></rect>
-          <rect x="19" y="19" width="4" height="4" fill="var(--color-text)"></rect>
-          <rect x="11" y="22" width="4" height="4" fill="var(--color-text)"></rect>
-          <rect x="3" y="19" width="4" height="4" fill="var(--color-text)"></rect>
-          <rect x="0" y="11" width="4" height="4" fill="var(--color-text)"></rect>
-          <rect x="3" y="3" width="4" height="4" fill="var(--color-text)"></rect>
-          <rect x="11" y="11" width="4" height="4" fill="var(--color-accent)"></rect>
-        </svg>
-        <span class="font-(family-name:--font-heading) font-extrabold text-[17px]">ARGOS</span>
+      <div class="flex items-center mb-3">
+        <img src="/isologo5.webp" alt="argOS" width="322" height="81" class="h-6 w-auto" />
       </div>
       <p class="text-[13px] max-w-[32ch] opacity-75 m-0">El primer sistema operativo de ciberinteligencia de Argentina para toda LATAM y el mundo.</p>
     </div>
