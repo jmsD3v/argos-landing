@@ -24,3 +24,22 @@ pnpm-debug.log*
 .idea/
 .vercel
 .env*
+
+# --- Base de seguridad e higiene (2026-10) ---
+!.env.example
+!.env.*.example
+!.env.sample
+!.env.template
+*.log
+logs/
+*.pem
+*.key
+*.p12
+*.pfx
+Thumbs.db
+.pnpm-store/
+build/
+coverage/
+.pnpm-debug.log*
+supabase/.temp/
+supabase/.branches/
