@@ -15,7 +15,7 @@
     "@astrojs/vercel": "^11.0.14",
     "@tailwindcss/vite": "^4.3.3",
     "animejs": "^4.5.0",
-    "astro": "^7.3.8",
+    "astro": "^7.4.7",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
